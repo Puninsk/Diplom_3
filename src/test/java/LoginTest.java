@@ -1,12 +1,9 @@
 import org.junit.Test;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import project.*;
 import static project.ForgottenPasswordPage.FORGOTTEN_PASSWORD_PAGE;
 import static project.LoginPage.LOGIN_PAGE;
@@ -28,10 +25,8 @@ public class LoginTest {
     private LoginPage loginPage;
     @Before
     public void setUp()  {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
+        String browserName = System.getProperty("browser");
+        driver = BrowsersDrivers.createDriver(browserName);
         userName = RandomStringUtils.randomAlphabetic(10);
         userEmail = RandomStringUtils.randomAlphabetic(10) + "@yandex.ru";
         userPassword = RandomStringUtils.randomAlphabetic(10);
@@ -48,7 +43,7 @@ public class LoginTest {
     public void userLogInFromMainPageLogInButton() {
         driver.get(MAIN_PAGE);
         mainPage.clickToLoginButton();
-        loginPage.moveToLogin();
+        loginPage.moveToLoginTest();
     }
 
     @Test
@@ -64,14 +59,14 @@ public class LoginTest {
     public void userLogInFromRegisterPage() {
         driver.get(REGISTRATION_PAGE);
         registrationPage.clickToLoginLink();
-        loginPage.moveToLogin();
+        loginPage.moveToLoginTest();
     }
     @Test
     @DisplayName("Enter through button forgotten password")
     public void userLogInFromPasswordRecoveryPage() {
         driver.get(FORGOTTEN_PASSWORD_PAGE);
         forgottenPasswordPage.clickLoginLink();
-        loginPage.moveToLogin();
+        loginPage.moveToLoginTest();
     }
     @Test
     @DisplayName("Move to mainpage through logo userpage")
@@ -90,7 +85,7 @@ public class LoginTest {
         loginPage.setUserLogin(userEmail, userPassword);
         loginPage.clickToLoginButton();
         userPage.clickUserPageButton();
-        userPage.userPageEnter();
+        userPage.userPageEnterTest();
     }
     @After
     public void tearDown() {

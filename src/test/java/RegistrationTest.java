@@ -1,12 +1,9 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import project.*;
 import static project.LoginPage.LOGIN_PAGE;
 import static project.MainPage.MAIN_PAGE;
@@ -23,10 +20,8 @@ public class RegistrationTest {
 
     @Before
     public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
+        String browserName = System.getProperty("browser");
+        driver = BrowsersDrivers.createDriver(browserName);
         userName = RandomStringUtils.randomAlphabetic(10);
         userEmail = RandomStringUtils.randomAlphabetic(10) + "@yandex.ru";
         userPassword = "Test333!";
@@ -60,7 +55,7 @@ public class RegistrationTest {
         registrationPage.isPasswordErrorDisplayed();
         driver.get(MAIN_PAGE);
         userPage.clickUserPageButton();
-        loginPage.moveToLogin();
+        loginPage.moveToLoginTest();
     }
     @After
     public void tearDown() {

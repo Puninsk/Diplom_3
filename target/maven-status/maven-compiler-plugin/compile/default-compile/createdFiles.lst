@@ -1,5 +1,6 @@
 project/MainPage.class
 project/User.class
+project/BrowsersDrivers.class
 project/ForgottenPasswordPage.class
 project/UserPage.class
 project/LoginPage.class

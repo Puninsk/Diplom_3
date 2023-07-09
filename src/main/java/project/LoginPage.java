@@ -2,6 +2,11 @@ package project;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 public class LoginPage {
@@ -10,13 +15,14 @@ public class LoginPage {
     public LoginPage(WebDriver driver){
         this.driver = driver;
     }
-    private final By registerPageLink = By.xpath("//a[text()='Зарегистрироваться']");
-    private final By loginButton = By.xpath("//button[text()='Войти']");
-    private final By emailField = By.xpath("//*[@name='name']");
-    private final By passwordField = By.xpath("//*[@name='Пароль']");
-    public void moveToLogin() {
+    private By registerPageLink = By.xpath("//a[text()='Зарегистрироваться']");
+    private By loginButton = By.xpath("//button[text()='Войти']");
+    private By emailField = By.xpath("//*[@name='name']");
+    private By passwordField = By.xpath("//*[@name='Пароль']");
+    public void moveToLoginTest() {
         assertThat("Происходит переход на страницу Логина", LOGIN_PAGE, equalTo(driver.getCurrentUrl()));
     }
+
     @Step("Click enter button on authorization page")
     public void clickToLoginButton() {
         driver.findElement(loginButton).click();
@@ -40,5 +46,11 @@ public class LoginPage {
     public void setUserLogin(String email, String password) {
         setEmailData(email);
         setPasswordData(password);
+    }
+
+    public void loginPageTest() {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfElementLocated(loginButton));
+        assertThat("Cтраница Логина", LOGIN_PAGE, equalTo(driver.getCurrentUrl()));
     }
 }

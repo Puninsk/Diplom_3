@@ -8,7 +8,7 @@ public class ForgottenPasswordPage {
         this.driver = driver;
     }
     public static final String FORGOTTEN_PASSWORD_PAGE = "https://stellarburgers.nomoreparties.site/forgot-password";
-    private final By loginLink = By.xpath("//*[@href='/login']");
+    private By loginLink = By.xpath("//*[@href='/login']");
     @Step("Click Enter link")
     public void clickLoginLink(){
         driver.findElement(loginLink).click();

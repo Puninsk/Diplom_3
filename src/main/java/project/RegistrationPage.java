@@ -10,12 +10,12 @@ public class RegistrationPage {
         this.driver = driver;
     }
     public static final String REGISTRATION_PAGE = "https://stellarburgers.nomoreparties.site/register";
-    private final By userPasswordField = By.xpath("//input[@name='Пароль']");
-    private final By userNameField = By.xpath("//label[text()='Имя']/following::input");
-    private final By userEmailField = By.xpath("//label[text()='Email']/following::input");
-    private final By registerButton = By.xpath(".//button[text()='Зарегистрироваться']");
-    private final By invalidPasswordError = By.xpath(".//p[text()='Некорректный пароль']");
-    private final By enterButton = By.xpath("//a[text()='Войти']");
+    private By userPasswordField = By.xpath("//input[@name='Пароль']");
+    private By userNameField = By.xpath("//label[text()='Имя']/following::input");
+    private By userEmailField = By.xpath("//label[text()='Email']/following::input");
+    private By registerButton = By.xpath(".//button[text()='Зарегистрироваться']");
+    private By invalidPasswordError = By.xpath(".//p[text()='Некорректный пароль']");
+    private By enterButton = By.xpath("//a[text()='Войти']");
     @Step("Click registration button")
     public void clickToRegisterButton() {
         driver.findElement(registerButton).click();
